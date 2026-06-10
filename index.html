@@ -1,0 +1,2871 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMIR RESTAURANT — Jizzax</title>
+  <meta name="description" content="Cinematic family restaurant experience in Jizzakh, Uzbekistan. Serving the finest Uzbek & Central Asian luxury cuisine. Est. 2018.">
+  <link rel="icon" type="image/png" href="amir_logo_clean_nobackground.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS Styles -->
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    :root {
+      --bg-dark: #080808;
+      --gold-primary: #c9a84c;
+      --gold-dark: #9e7f33;
+      --ember-red: #8b1a1a;
+      --cream-text: #f0e6d3;
+      --cream-muted: #bcae97;
+      --glass-bg: rgba(15, 15, 15, 0.65);
+      --glass-border: rgba(201, 168, 76, 0.15);
+      --glass-blur: blur(12px);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', sans-serif;
+      --font-accent: 'Cormorant Garamond', serif;
+    }
+
+    html, body {
+      background-color: var(--bg-dark);
+      color: var(--cream-text);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    body {
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-primary) var(--bg-dark);
+    }
+
+    body::-webkit-scrollbar {
+      width: 6px;
+    }
+    body::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    body::-webkit-scrollbar-thumb {
+      background: var(--gold-primary);
+      border-radius: 3px;
+    }
+
+    /* Hide default cursor when custom cursor is active */
+    body.custom-cursor-active,
+    body.custom-cursor-active a,
+    body.custom-cursor-active button,
+    body.custom-cursor-active input,
+    body.custom-cursor-active textarea,
+    body.custom-cursor-active select,
+    body.custom-cursor-active [role="button"] {
+      cursor: none !important;
+    }
+
+    /* Selection Color */
+    ::selection {
+      background: var(--gold-primary);
+      color: var(--bg-dark);
+    }
+
+    /* Typography Utilities */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      line-height: 1.7;
+      font-weight: 300;
+      color: var(--cream-muted);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Custom Magnetic Cursor */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold-primary);
+      position: fixed;
+      border-radius: 50%;
+      z-index: 10000;
+      pointer-events: none;
+      box-shadow: 0 0 10px var(--gold-primary);
+      display: none;
+      opacity: 0;
+    }
+
+    .cursor-ring {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--gold-primary);
+      position: fixed;
+      border-radius: 50%;
+      z-index: 9999;
+      pointer-events: none;
+      transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s;
+      display: none;
+      opacity: 0;
+    }
+
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--bg-dark);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .preloader-logo-img {
+      max-width: 200px;
+      height: auto;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: scale(0.9) translateY(15px);
+    }
+
+    .preloader-bar-wrap {
+      width: 250px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preloader-bar {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(8, 8, 8, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: padding 0.3s, background-color 0.3s;
+    }
+
+    header.scrolled {
+      padding: 1rem 4rem;
+      background: rgba(8, 8, 8, 0.9);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      letter-spacing: 0.15em;
+      color: var(--cream-text);
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(201, 168, 76, 0.2);
+    }
+
+    .logo span {
+      color: var(--gold-primary);
+    }
+
+    .logo-sub {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: var(--cream-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    nav {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--cream-muted);
+      transition: color 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold-primary);
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--gold-primary);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      gap: 0.5rem;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 4px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--cream-muted);
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 15px;
+      transition: all 0.3s;
+    }
+
+    .lang-btn.active {
+      background: var(--gold-primary);
+      color: var(--bg-dark);
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.4);
+    }
+
+    /* Luxury Shimmer Buttons */
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: var(--bg-dark);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      border: none;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+    }
+
+    .btn-gold::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 30%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.4);
+      transform: rotate(30deg);
+      transition: transform 0.6s ease;
+      opacity: 0.7;
+    }
+
+    .btn-gold:hover {
+      box-shadow: 0 4px 25px rgba(201, 168, 76, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .btn-gold:hover::after {
+      transform: translate(400%, -30%) rotate(30deg);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(201, 168, 76, 0.08);
+      box-shadow: 0 0 15px rgba(201, 168, 76, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Nav Toggle */
+    .mobile-nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--cream-text);
+      font-size: 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(8, 8, 8, 0.6) 0%, rgba(8, 8, 8, 0.95) 100%);
+      z-index: 2;
+    }
+
+    /* Canvas overlay */
+    #ember-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 2rem;
+    }
+
+    .hero-subtitle-top {
+      font-family: var(--font-accent);
+      font-style: italic;
+      color: var(--gold-primary);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 5.5rem;
+      letter-spacing: 0.1em;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-title span {
+      display: inline-block;
+    }
+
+    .hero-subtitle-bottom {
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      color: var(--cream-muted);
+      margin-bottom: 3.5rem;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cream-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .scroll-arrow {
+      font-size: 1rem;
+      animation: bounce 2s infinite;
+      color: var(--gold-primary);
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+
+    /* Section Container & Standard Styles */
+    section {
+      padding: 8rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header {
+      margin-bottom: 5rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-accent);
+      font-style: italic;
+      color: var(--gold-primary);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 3.2rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Animated Gold Divider Line Effect */
+    .section-divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+      margin: 1.5rem auto 0 auto;
+      position: relative;
+    }
+
+    .section-divider::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 7px;
+      height: 7px;
+      background: var(--gold-primary);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--gold-primary);
+    }
+
+    /* About Section */
+    .about-section {
+      background: radial-gradient(circle at 80% 50%, rgba(139, 26, 26, 0.08) 0%, transparent 60%);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .about-quote {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--gold-primary);
+      line-height: 1.4;
+      border-left: 2px solid var(--gold-primary);
+      padding-left: 2rem;
+      margin: 1rem 0;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 2.5rem;
+    }
+
+    .stat-card {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      color: var(--gold-primary);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .stat-label {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+    }
+
+    .about-visual {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-video-container {
+      width: 90%;
+      height: 90%;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      background: var(--bg-dark);
+      z-index: 2;
+    }
+
+    .about-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+      transition: transform 0.5s;
+    }
+
+    .about-visual:hover .about-video {
+      transform: scale(1);
+    }
+
+    /* Rotating Vector Gold Frame Border */
+    .about-frame-border {
+      position: absolute;
+      width: 92%;
+      height: 92%;
+      border: 1px solid var(--gold-primary);
+      z-index: 1;
+      pointer-events: none;
+      top: 2%;
+      left: 2%;
+      opacity: 0.6;
+    }
+
+    /* Menu Section */
+    .menu-section {
+      background: radial-gradient(circle at 20% 70%, rgba(201, 168, 76, 0.05) 0%, transparent 60%);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+      margin-bottom: 5rem;
+    }
+
+    /* CSS 3D Flip Card Container */
+    .menu-card-container {
+      perspective: 1000px;
+      aspect-ratio: 3/4.2;
+      width: 100%;
+    }
+
+    .menu-card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .menu-card-container:hover .menu-card {
+      transform: rotateY(180deg);
+    }
+
+    .menu-card-front, .menu-card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* Glow on hover */
+    .menu-card-container:hover .menu-card-front,
+    .menu-card-container:hover .menu-card-back {
+      border-color: rgba(201, 168, 76, 0.4);
+      box-shadow: 0 10px 30px rgba(201, 168, 76, 0.08);
+    }
+
+    .menu-card-front::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 40%, rgba(8, 8, 8, 0.9) 100%);
+      z-index: 1;
+    }
+
+    .menu-card-image-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      overflow: hidden;
+    }
+
+    .menu-card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .menu-card-container:hover .menu-card-image {
+      transform: scale(1.08);
+    }
+
+    .menu-card-front-info {
+      position: relative;
+      z-index: 2;
+      margin-top: auto;
+    }
+
+    .menu-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: var(--cream-text);
+      font-weight: 500;
+    }
+
+    .menu-card-title-sub {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--cream-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .menu-card-price {
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      color: var(--gold-primary);
+      font-weight: 600;
+      border-top: 1px solid rgba(201, 168, 76, 0.2);
+      padding-top: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-card-price span {
+      font-size: 0.75rem;
+      color: var(--cream-muted);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Back details styling */
+    .menu-card-back {
+      transform: rotateY(180deg);
+      justify-content: flex-start;
+      gap: 1.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(8, 8, 8, 0.98));
+    }
+
+    .menu-card-back-header {
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      padding-bottom: 1rem;
+      width: 100%;
+    }
+
+    .menu-card-back-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--gold-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .menu-card-back-desc {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--cream-muted);
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    .menu-card-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      width: 100%;
+      text-align: left;
+      margin-top: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .menu-card-detail-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      padding-bottom: 4px;
+    }
+
+    .menu-card-detail-label {
+      color: var(--cream-muted);
+    }
+
+    .menu-card-detail-value {
+      color: var(--cream-text);
+      font-weight: 500;
+    }
+
+    .menu-card-order-btn {
+      width: 100%;
+      padding: 0.7rem;
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .menu-card-order-btn:hover {
+      background: var(--gold-primary);
+      color: var(--bg-dark);
+      box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
+    }
+
+    .menu-footer {
+      text-align: center;
+    }
+
+    /* Horizontal Pinned Gallery Section */
+    .gallery-container-outer {
+      overflow: hidden;
+      width: 100%;
+      background: #050505;
+      padding: 0;
+    }
+
+    .horizontal-scroll-wrap {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 100vh;
+      width: 400vw; /* 4 screens wide */
+      will-change: transform;
+    }
+
+    .gallery-slide {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .gallery-slide-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+      transition: transform 0.8s ease;
+      transform: scale(1.05);
+    }
+
+    .gallery-slide:hover .gallery-slide-img {
+      transform: scale(1.1);
+    }
+
+    .gallery-slide-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+
+    .gallery-slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(8, 8, 8, 0.85) 0%, rgba(8, 8, 8, 0.4) 50%, rgba(8, 8, 8, 0.85) 100%);
+      z-index: 2;
+    }
+
+    .gallery-slide-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 4rem;
+    }
+
+    .gallery-slide-tag {
+      font-family: var(--font-accent);
+      font-style: italic;
+      color: var(--gold-primary);
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-slide-title {
+      font-family: var(--font-serif);
+      font-size: 4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .gallery-slide-desc {
+      font-size: 1rem;
+      color: var(--cream-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Reviews Section */
+    .reviews-section {
+      background: radial-gradient(circle at 50% 50%, rgba(139, 26, 26, 0.05) 0%, transparent 60%);
+    }
+
+    .stars-outer {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.1);
+      font-size: 1.3rem;
+    }
+
+    .stars-inner {
+      display: flex;
+      gap: 0.4rem;
+      color: var(--gold-primary);
+      overflow: hidden;
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .reviews-carousel-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 3rem;
+    }
+
+    .reviews-carousel {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    .reviews-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    .review-slide {
+      width: 100%;
+      flex-shrink: 0;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      padding: 3rem;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .review-text {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--cream-text);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .review-author-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .review-author {
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      color: var(--gold-primary);
+    }
+
+    .review-meta {
+      font-size: 0.7rem;
+      color: var(--cream-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .reviews-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: 1px solid var(--glass-border);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      color: var(--cream-text);
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .reviews-nav-btn:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      background: rgba(201, 168, 76, 0.05);
+    }
+
+    .reviews-nav-btn.prev {
+      left: -1rem;
+    }
+
+    .reviews-nav-btn.next {
+      right: -1rem;
+    }
+
+    .reviews-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 2.5rem;
+    }
+
+    .review-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .review-dot.active {
+      background: var(--gold-primary);
+      transform: scale(1.4);
+      box-shadow: 0 0 8px var(--gold-primary);
+    }
+
+    /* Find Us Section */
+    .find-us-section {
+      background: radial-gradient(circle at 10% 20%, rgba(201, 168, 76, 0.04) 0%, transparent 50%);
+    }
+
+    .find-us-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .contact-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      padding: 3.5rem;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .contact-icon {
+      color: var(--gold-primary);
+      font-size: 1.3rem;
+      margin-top: 0.3rem;
+    }
+
+    .contact-info-title {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .contact-info-text {
+      font-size: 1rem;
+      color: var(--cream-text);
+      font-weight: 300;
+    }
+
+    .contact-info-text a:hover {
+      color: var(--gold-primary);
+    }
+
+    /* Open indicator */
+    .open-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      color: #39e75f;
+      border: 1px solid rgba(57, 231, 95, 0.2);
+      background: rgba(57, 231, 95, 0.05);
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-top: 1rem;
+      align-self: flex-start;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background: #39e75f;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(57, 231, 95, 0.7);
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(57, 231, 95, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(57, 231, 95, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(57, 231, 95, 0);
+      }
+    }
+
+    .map-container {
+      width: 100%;
+      height: 500px;
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(1) invert(0.92) contrast(1.2);
+    }
+
+    /* Footer */
+    footer {
+      background: #040404;
+      border-top: 1px solid rgba(255, 255, 255, 0.02);
+      padding: 5rem 4rem 3rem 4rem;
+      text-align: center;
+    }
+
+    .footer-brand {
+      margin-bottom: 3rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      letter-spacing: 0.15em;
+      color: var(--cream-text);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .footer-logo span {
+      color: var(--gold-primary);
+    }
+
+    .footer-tagline {
+      font-family: var(--font-accent);
+      font-style: italic;
+      color: var(--cream-muted);
+      font-size: 1.1rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .social-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--cream-muted);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      background: rgba(201, 168, 76, 0.05);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .copyright {
+      font-size: 0.8rem;
+      color: var(--cream-muted);
+    }
+
+    .developer {
+      font-size: 0.8rem;
+      color: var(--cream-muted);
+    }
+
+    .developer a {
+      color: var(--gold-primary);
+      transition: border-bottom 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .developer a:hover {
+      border-bottom-color: var(--gold-primary);
+    }
+
+    /* Modal / Booking overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(8, 8, 8, 0.95);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      padding: 4rem;
+      max-width: 550px;
+      width: 90%;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--cream-muted);
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .modal-close:hover {
+      color: var(--gold-primary);
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .modal-desc {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-primary);
+      font-weight: 500;
+    }
+
+    .form-input {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.9rem 1.2rem;
+      color: var(--cream-text);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      border-radius: 2px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .form-input:focus {
+      border-color: var(--gold-primary);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+      }
+      .about-grid {
+        gap: 4rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      header {
+        padding: 1.5rem 2rem;
+      }
+      header.scrolled {
+        padding: 1rem 2rem;
+      }
+      nav {
+        display: none; /* Hide desktop nav */
+      }
+      .mobile-nav-toggle {
+        display: block;
+      }
+      .header-actions {
+        display: none;
+      }
+      .hero-title {
+        font-size: 4rem;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      .about-visual {
+        order: -1;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .find-us-grid {
+        grid-template-columns: 1fr;
+      }
+      section {
+        padding: 6rem 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+      }
+      .hero-ctas .btn-gold, .hero-ctas .btn-outline {
+        width: 100%;
+        max-width: 300px;
+      }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      .menu-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto 4rem auto;
+      }
+      .reviews-carousel-container {
+        padding: 0;
+      }
+      .review-slide {
+        padding: 2rem;
+      }
+      .contact-card {
+        padding: 2rem;
+      }
+      .map-container {
+        height: 350px;
+      }
+    }
+
+    /* Mobile Sidebar Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 400px;
+      height: 100vh;
+      background: var(--bg-dark);
+      border-left: 1px solid var(--glass-border);
+      z-index: 2000;
+      padding: 6rem 3rem 3rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: var(--cream-text);
+      font-size: 1.5rem;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .mobile-nav-links a {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--cream-muted);
+      transition: color 0.3s;
+    }
+
+    .mobile-nav-links a:hover {
+      color: var(--gold-primary);
+    }
+
+    .mobile-lang-switcher {
+      display: flex;
+      gap: 1rem;
+      margin-top: auto;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      z-index: 1999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor Elements -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Preloader Screen -->
+  <div class="preloader">
+    <img src="Amir_logo_nobackground.png" alt="Amir Restaurant Logo" class="preloader-logo-img">
+    <div class="preloader-bar-wrap">
+      <div class="preloader-bar"></div>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="logo-container">
+      <a href="#" class="logo">AMIR<span>.</span></a>
+      <div class="logo-sub" data-key="nav_tagline">Family Restaurant</div>
+    </div>
+    
+    <nav>
+      <a href="#about" data-key="nav_story">Tarix</a>
+      <a href="#menu" data-key="nav_menu">Menyu</a>
+      <a href="#gallery" data-key="nav_gallery">Galereya</a>
+      <a href="#reviews" data-key="nav_reviews">Fikrlar</a>
+      <a href="#contact" data-key="nav_contact">Aloqa</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('uz')">UZ</button>
+        <button class="lang-btn" onclick="switchLang('ru')">RU</button>
+        <button class="lang-btn" onclick="switchLang('en')">EN</button>
+      </div>
+      <button class="btn-gold" data-key="nav_book" onclick="openModal()">Bron Qilish</button>
+    </div>
+
+    <button class="mobile-nav-toggle" onclick="toggleMobileMenu()">
+      <i class="fa-solid fa-bars-staggered"></i>
+    </button>
+  </header>
+
+  <!-- Mobile Menu Sidebar -->
+  <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+  <div class="mobile-menu">
+    <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="mobile-nav-links">
+      <a href="#about" onclick="toggleMobileMenu()" data-key="nav_story">Tarix</a>
+      <a href="#menu" onclick="toggleMobileMenu()" data-key="nav_menu">Menyu</a>
+      <a href="#gallery" onclick="toggleMobileMenu()" data-key="nav_gallery">Galereya</a>
+      <a href="#reviews" onclick="toggleMobileMenu()" data-key="nav_reviews">Fikrlar</a>
+      <a href="#contact" onclick="toggleMobileMenu()" data-key="nav_contact">Aloqa</a>
+    </div>
+    <button class="btn-gold" style="width: 100%;" data-key="nav_book" onclick="openModal(); toggleMobileMenu();">Bron Qilish</button>
+    <div class="mobile-lang-switcher">
+      <button class="lang-btn active" onclick="switchLang('uz')">UZ</button>
+      <button class="lang-btn" onclick="switchLang('ru')">RU</button>
+      <button class="lang-btn" onclick="switchLang('en')">EN</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <video class="hero-video-bg" autoplay loop muted playsinline>
+      <source src="videos/AMIR%E2%98%86RESTORANT%20%23Oshxona%20%23Restoran%20%23Food%20%23Yemek%20%23Taom%20%23Ovqat%20%23MilliyTaom%20%23UzbekFood%20%23Nonushta%20%23Tu.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <canvas id="ember-canvas"></canvas>
+    
+    <div class="hero-content">
+      <div class="hero-subtitle-top" data-key="hero_welcome">Xush Kelibsiz</div>
+      <h1 class="hero-title" id="hero-main-title">
+        AMIR RESTAURANT
+      </h1>
+      <div class="hero-subtitle-bottom" data-key="hero_tagline">Jizzaxning eng mazali taomi</div>
+      
+      <div class="hero-ctas">
+        <a href="#menu" class="btn-gold" data-key="hero_cta_menu">Menyu ko'rish</a>
+        <button class="btn-outline" data-key="hero_cta_book" onclick="openModal()">Bron qilish</button>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span data-key="hero_scroll">Pastga Scroll</span>
+      <i class="fa-solid fa-arrow-down scroll-arrow"></i>
+    </div>
+  </section>
+
+  <!-- Story / About Section -->
+  <section class="about-section" id="about">
+    <div class="about-grid">
+      <div class="about-content">
+        <div class="section-subtitle" data-key="about_subtitle">Bizning Hikoya</div>
+        <h2 class="section-title" data-key="about_title">Milliy Qadriyat va Hashamat</h2>
+        <div class="section-divider" style="margin: 0 0 1.5rem 0;"></div>
+        
+        <p data-key="about_p1">Jizzax shahrining qoq markazida joylashgan "Amir Restaurant" oilaviy maskani sizga o'zbek mehmondo'stligining eng yuksak namunalarini taqdim etadi. Oila a'zolaringiz bilan shinam sharoitda o'tirib, olovda pishgan tansiq milliy taomlarimizdan bahramand bo'ling.</p>
+        
+        <div class="about-quote" data-key="about_quote">
+          "Har bir taomda ehtirom, har bir mehmonda sharaf."
+        </div>
+        
+        <p data-key="about_p2">Sifatli masalliqlar, mohir oshpazlarimizning maxsus retseptlari va beqiyos oilaviy muhit. Biz har bir lahzani unutilmas hashamat bilan bezaymiz.</p>
+        
+        <!-- Stats Count Up Row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-number" data-start="0" data-target="4.6" data-decimals="1">0</div>
+            <div class="stat-label" data-key="stat_rating">Rating ★</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-start="0" data-target="26">0</div>
+            <div class="stat-label" data-key="stat_reviews">Fikrlar (Google)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-start="2000" data-target="2018">2000</div>
+            <div class="stat-label" data-key="stat_established">Tashkil Etilgan</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-start="0" data-target="100" data-suffix="%">0</div>
+            <div class="stat-label" data-key="stat_family">Oilaviy Maskani</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-visual">
+        <div class="about-frame-border" id="about-frame"></div>
+        <div class="about-video-container">
+          <video class="about-video" autoplay loop muted playsinline>
+            <source src="videos/AMIR%E2%98%86RESTORANT%20Yangiliklarimiz-%20mangalda%20pishgan%20mol%20biqinlarimiz%F0%9F%A5%A9%F0%9F%A5%A9.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signature Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="section-header">
+      <div class="section-subtitle" data-key="menu_subtitle">Tansiq Taomlar</div>
+      <h2 class="section-title" id="menu-section-title" data-key="menu_title">Tavsiya Etilgan Taomlarimiz</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- 3D Card Grid -->
+    <div class="menu-grid">
+      <!-- Card 1: Lagman -->
+      <div class="menu-card-container" data-tilt data-tilt-max="15">
+        <div class="menu-card">
+          <div class="menu-card-front">
+            <div class="menu-card-image-wrap">
+              <img class="menu-card-image" src="food/lagman.jpg" alt="Lag'mon">
+            </div>
+            <div class="menu-card-front-info">
+              <h3 class="menu-card-title">Lag'mon</h3>
+              <div class="menu-card-title-sub" data-key="menu_cat_noodle">Uy sharoitida tayyorlangan xamir</div>
+              <div class="menu-card-price">65,000 UZS <span>Portsiya</span></div>
+            </div>
+          </div>
+          <div class="menu-card-back">
+            <div class="menu-card-back-header">
+              <h3 class="menu-card-back-title">Lag'mon</h3>
+              <span style="font-size: 0.75rem; color: var(--gold-primary); letter-spacing: 0.1em; text-transform: uppercase;">Tradition</span>
+            </div>
+            <p class="menu-card-back-desc" data-key="menu_desc_lagman">Qo'lda cho'zilgan xamir, barra sabzavotlar hamda maxsus tandir ziravorlari bilan tayyorlangan shirin va mazali mol go'shtidan iborat quyuq taom.</p>
+            <div class="menu-card-details-list">
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_weight">Vazni:</span>
+                <span class="menu-card-detail-value">450 gr</span>
+              </div>
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_time">Tayyorlanish vaqti:</span>
+                <span class="menu-card-detail-value">15-20 min</span>
+              </div>
+            </div>
+            <button class="menu-card-order-btn" data-key="menu_order" onclick="openModal('Lag\'mon')">Buyurtma berish</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Shashlik -->
+      <div class="menu-card-container" data-tilt data-tilt-max="15">
+        <div class="menu-card">
+          <div class="menu-card-front">
+            <div class="menu-card-image-wrap">
+              <img class="menu-card-image" src="food/barra_shashlik.jpg" alt="Shashlik">
+            </div>
+            <div class="menu-card-front-info">
+              <h3 class="menu-card-title">Barra Shashlik</h3>
+              <div class="menu-card-title-sub" data-key="menu_cat_kebab">Ko'mirdagi shirin go'shtlar</div>
+              <div class="menu-card-price">75,000 UZS <span>4 dona / mix</span></div>
+            </div>
+          </div>
+          <div class="menu-card-back">
+            <div class="menu-card-back-header">
+              <h3 class="menu-card-back-title">Barra Shashlik</h3>
+              <span style="font-size: 0.75rem; color: var(--gold-primary); letter-spacing: 0.1em; text-transform: uppercase;">Charcoal Grill</span>
+            </div>
+            <p class="menu-card-back-desc" data-key="menu_desc_shashlik">Mangalda ko'mir taftida astalik bilan pishirilgan barra qo'y va mol go'shtlaridan iborat qiyma hamda burda shashlik to'plami. Piyoz va uksus bilan beriladi.</p>
+            <div class="menu-card-details-list">
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_weight">Tarkibi:</span>
+                <span class="menu-card-detail-value" data-key="menu_tarkib_lamb">Qo'y va Mol go'shti</span>
+              </div>
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_time">Tayyorlanish vaqti:</span>
+                <span class="menu-card-detail-value">20-25 min</span>
+              </div>
+            </div>
+            <button class="menu-card-order-btn" data-key="menu_order" onclick="openModal('Barra Shashlik')">Buyurtma berish</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Uzbek Patir Bread -->
+      <div class="menu-card-container" data-tilt data-tilt-max="15">
+        <div class="menu-card">
+          <div class="menu-card-front">
+            <div class="menu-card-image-wrap">
+              <img class="menu-card-image" src="food/jizzax_patiri.webp" alt="Patir Non">
+            </div>
+            <div class="menu-card-front-info">
+              <h3 class="menu-card-title">Jizzax Patiri</h3>
+              <div class="menu-card-title-sub" data-key="menu_cat_bread">Issiq tandir nonlari</div>
+              <div class="menu-card-price">50,000 UZS <span>1 dona</span></div>
+            </div>
+          </div>
+          <div class="menu-card-back">
+            <div class="menu-card-back-header">
+              <h3 class="menu-card-back-title">Jizzax Patiri</h3>
+              <span style="font-size: 0.75rem; color: var(--gold-primary); letter-spacing: 0.1em; text-transform: uppercase;">Clay Oven</span>
+            </div>
+            <p class="menu-card-back-desc" data-key="menu_desc_bread">Jizzax uslubida, maxsus qaymoq va dumba yog'i qo'shib tayyorlangan, tandirdan yangi uzilgan issiqgina, og'izda eruvchi qatlama patir.</p>
+            <div class="menu-card-details-list">
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_weight">Vazni:</span>
+                <span class="menu-card-detail-value">600 gr</span>
+              </div>
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_time">Tayyorlanish vaqti:</span>
+                <span class="menu-card-detail-value" data-key="menu_value_hot">Issiq holda beriladi</span>
+              </div>
+            </div>
+            <button class="menu-card-order-btn" data-key="menu_order" onclick="openModal('Jizzax Patiri')">Buyurtma berish</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Tobacco chicken -->
+      <div class="menu-card-container" data-tilt data-tilt-max="15">
+        <div class="menu-card">
+          <div class="menu-card-front">
+            <div class="menu-card-image-wrap">
+              <img class="menu-card-image" src="food/tovuq_tabaka.jpg" alt="Tovuq Tabaka">
+            </div>
+            <div class="menu-card-front-info">
+              <h3 class="menu-card-title">Tovuq Tabaka</h3>
+              <div class="menu-card-title-sub" data-key="menu_cat_chicken">Qarsillagan oltin po'stloq</div>
+              <div class="menu-card-price">85,000 UZS <span>Butun tovuq</span></div>
+            </div>
+          </div>
+          <div class="menu-card-back">
+            <div class="menu-card-back-header">
+              <h3 class="menu-card-back-title">Tovuq Tabaka</h3>
+              <span style="font-size: 0.75rem; color: var(--gold-primary); letter-spacing: 0.1em; text-transform: uppercase;">Crispy Roast</span>
+            </div>
+            <p class="menu-card-back-desc" data-key="menu_desc_chicken">Maxsus ziravorlar va sarimsoq sharbati bilan marinadlangan hamda press ostida qarsillab pishirilgan oltin rangli mazzali tovuq tabaka.</p>
+            <div class="menu-card-details-list">
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_weight">Vazni:</span>
+                <span class="menu-card-detail-value">~1.2 kg</span>
+              </div>
+              <div class="menu-card-detail-item">
+                <span class="menu-card-detail-label" data-key="menu_detail_time">Tayyorlanish vaqti:</span>
+                <span class="menu-card-detail-value">30 min</span>
+              </div>
+            </div>
+            <button class="menu-card-order-btn" data-key="menu_order" onclick="openModal('Tovuq Tabaka')">Buyurtma berish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-footer">
+      <button class="btn-gold" data-key="menu_full_btn" onclick="openModal('To\'liq Menyu')">To'liq menyuni yuklab olish</button>
+    </div>
+  </section>
+
+  <!-- Cinematic Gallery Pinned Horizontal Scroll Section -->
+  <section class="gallery-container-outer" id="gallery">
+    <div class="horizontal-scroll-wrap" id="horizontal-scroll">
+      
+      <!-- Slide 1: General atmosphere -->
+      <div class="gallery-slide">
+        <img class="gallery-slide-img" src="atmosphere/atmosphere_1.png" alt="Grill">
+        <div class="gallery-slide-overlay"></div>
+        <div class="gallery-slide-content">
+          <div class="gallery-slide-tag" data-key="gallery_tag1">Olov nafasi</div>
+          <h3 class="gallery-slide-title" data-key="gallery_title1">MANGAL SAN'ATI</h3>
+          <p class="gallery-slide-desc" data-key="gallery_desc1">Har bir go'sht burdasi ko'mir alangasi taftida eng nozik didli mehmonlarimiz uchun tayyorlanadi.</p>
+        </div>
+      </div>
+
+      <!-- Slide 2: Embedded loop of Restaurant kabob mix -->
+      <div class="gallery-slide">
+        <video class="gallery-slide-video" autoplay loop muted playsinline>
+          <source src="videos/AMIR%20RESTAURANT%20%F0%9F%8F%B0kabob%20mix%20%F0%9F%8D%A1%F0%9F%98%8B.mp4" type="video/mp4">
+        </video>
+        <div class="gallery-slide-overlay"></div>
+        <div class="gallery-slide-content">
+          <div class="gallery-slide-tag" data-key="gallery_tag2">Tansiq lazzatlar</div>
+          <h3 class="gallery-slide-title" data-key="gallery_title2">HAQIQIY KABOB TO'PLAMI</h3>
+          <p class="gallery-slide-desc" data-key="gallery_desc2">Amir Restorani ramziy mazasi - shirali go'shtlarning eng ajoyib uyg'unligi.</p>
+        </div>
+      </div>
+
+      <!-- Slide 3: Fine table setting -->
+      <div class="gallery-slide">
+        <img class="gallery-slide-img" src="atmosphere/atmosphere_2.png" alt="Table Setting">
+        <div class="gallery-slide-overlay"></div>
+        <div class="gallery-slide-content">
+          <div class="gallery-slide-tag" data-key="gallery_tag3">Hashamatli muhit</div>
+          <h3 class="gallery-slide-title" data-key="gallery_title3">OILAVIY SHINAMLIK</h3>
+          <p class="gallery-slide-desc" data-key="gallery_desc3">Prezident darajasidagi xizmat, zamonaviy shinam dizayn va beqiyos noziklik.</p>
+        </div>
+      </div>
+
+      <!-- Slide 4: Uzbek Spices -->
+      <div class="gallery-slide">
+        <img class="gallery-slide-img" src="atmosphere/atmosphere_3.png" alt="Uzbek Spices">
+        <div class="gallery-slide-overlay"></div>
+        <div class="gallery-slide-content">
+          <div class="gallery-slide-tag" data-key="gallery_tag4">Tabiiy ingrediyentlar</div>
+          <h3 class="gallery-slide-title" data-key="gallery_title4">ZIRAVORLAR JOZIBASI</h3>
+          <p class="gallery-slide-desc" data-key="gallery_desc4">Samarqand zafaroni, tog' rayhoni hamda Jizzaxning o'ziga xos tog' ziravorlari bilan to'yingan lazzatlar.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="reviews-section" id="reviews">
+    <div class="section-header">
+      <div class="section-subtitle" data-key="reviews_subtitle">Tashrif buyurganlar fikrlari</div>
+      <h2 class="section-title" data-key="reviews_title">Mijozlarimiz E'tirofi</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Gold Stars Fill Animation -->
+    <div class="stars-outer">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <div class="stars-inner" id="rating-stars">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+      </div>
+    </div>
+
+    <!-- Reviews Glassmorphic Carousel -->
+    <div class="reviews-carousel-container">
+      <button class="reviews-nav-btn prev" onclick="moveCarousel(-1)">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="reviews-nav-btn next" onclick="moveCarousel(1)">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <div class="reviews-carousel">
+        <div class="reviews-track" id="reviews-track">
+          <!-- Slide 1 -->
+          <div class="review-slide">
+            <p class="review-text" data-key="review_text_1">"Jizzaxdagi eng ajoyib oilaviy restoranlardan biri! Shashliklari juda yumshoq va mazzali pishgan. Oshpazlarga kattakon rahmat, xizmat ko'rsatish ham yuqori darajada. Oilamiz bilan doimiy mijozga aylandik."</p>
+            <div class="review-author-info">
+              <span class="review-author">Xushnudbek M.</span>
+              <span class="review-meta" data-key="review_meta_1">Google Maps • 5 yulduz</span>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="review-slide">
+            <p class="review-text" data-key="review_text_2">"Очень красивое, статусное место. Заказывали мясо на ребрышках и патыр - это просто шедевр. Цены вполне приемлемые для такого качества еды и сервиса. Рекомендую всем гостям Джизака!"</p>
+            <div class="review-author-info">
+              <span class="review-author">Елена Смирнова</span>
+              <span class="review-meta" data-key="review_meta_2">Google Maps • 4.8 yulduz</span>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="review-slide">
+            <p class="review-text" data-key="review_text_3">"Excellent food and beautiful atmosphere. The lagman noodles are handmade and very delicious. A perfect family place with clean environment and friendly English-speaking staff."</p>
+            <div class="review-author-info">
+              <span class="review-author">David K.</span>
+              <span class="review-meta" data-key="review_meta_3">Google Maps • 5 stars</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews-dots" id="reviews-dots">
+        <button class="review-dot active" onclick="jumpToSlide(0)"></button>
+        <button class="review-dot" onclick="jumpToSlide(1)"></button>
+        <button class="review-dot" onclick="jumpToSlide(2)"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find Us / Contact Section -->
+  <section class="find-us-section" id="contact">
+    <div class="find-us-grid">
+      <!-- Contact card -->
+      <div class="contact-card">
+        <div class="section-subtitle" style="margin-bottom: 0;" data-key="contact_subtitle">Aloqada Bo'ling</div>
+        <h2 class="section-title" style="font-size: 2.2rem; margin-bottom: 0;" data-key="contact_title">Biz Bilan Bog'lanish</h2>
+        <div class="section-divider" style="margin: 0 0 1rem 0;"></div>
+
+        <!-- Open indicator -->
+        <div class="open-indicator">
+          <div class="pulse-dot"></div>
+          <span data-key="contact_open_now">Hozir Ochiq</span>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <div class="contact-info-title" data-key="contact_label_addr">Manzilimiz</div>
+            <div class="contact-info-text">Amir Restaurant, 4RR3+2PF, Jizzax, Jizzax viloyati, Uzbekistan</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <div class="contact-info-title" data-key="contact_label_phone">Telefon raqamimiz</div>
+            <div class="contact-info-text">
+              <a href="tel:+998981014249" id="phone-number">+998 98 101 42 49</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+          <div>
+            <div class="contact-info-title" data-key="contact_label_hours">Ish soatlarimiz</div>
+            <div class="contact-info-text" data-key="contact_hours_val">Har kuni: 10:00 – 23:00</div>
+          </div>
+        </div>
+
+        <button class="btn-gold" style="align-self: flex-start;" data-key="contact_btn_book" onclick="openModal()">Bron qilish</button>
+      </div>
+
+      <!-- Styled Map Container -->
+      <div class="map-container">
+        <!-- Google Map Iframe for Amir Restorani Gulobod Street, Jizzakh -->
+        <iframe class="map-iframe" src="https://maps.google.com/maps?q=Amir%20Restorani%20Gulobod%20Street%20Jizzax%20Uzbekistan&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-brand">
+      <h3 class="footer-logo">AMIR<span>.</span></h3>
+      <p class="footer-tagline" data-key="footer_tagline">Jizzaxning eng mazali taomi</p>
+    </div>
+
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/asr_restaurant_jizzax/" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://t.me/asrrestoranjizzax" target="_blank" class="social-btn"><i class="fa-brands fa-telegram"></i></a>
+      <a href="https://facebook.com" target="_blank" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="copyright">
+        &copy; 2025 Amir Restaurant. Jizzax, O'zbekiston. All Rights Reserved.
+      </div>
+      <div class="developer" data-key="footer_dev">
+        Crafted with passion for <a href="#">Amir Restaurant</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Table Booking Modal -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title" data-key="modal_title">Stol Bron Qilish</h3>
+      <p class="modal-desc" data-key="modal_desc">Siz tanlagan vaqtda eng shinam stolni siz uchun tayyorlab qo'yamiz</p>
+      
+      <form class="booking-form" onsubmit="handleBooking(event)">
+        <div class="form-group">
+          <label for="book-name" data-key="modal_name">Ismingiz</label>
+          <input type="text" id="book-name" class="form-input" required placeholder="Masalan: Shoxrux">
+        </div>
+        <div class="form-group">
+          <label for="book-phone" data-key="modal_phone">Telefon raqamingiz</label>
+          <input type="tel" id="book-phone" class="form-input" required placeholder="+998 90 123 45 67">
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="book-date" data-key="modal_date">Sana</label>
+            <input type="date" id="book-date" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="book-guests" data-key="modal_guests">Mehmonlar soni</label>
+            <select id="book-guests" class="form-input" style="color: var(--cream-text);">
+              <option value="2">2 kishi</option>
+              <option value="4">4 kishi</option>
+              <option value="6">6 kishi</option>
+              <option value="8" data-key="modal_option_more">8+ kishi (katta stol)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-gold" style="width: 100%; margin-top: 1rem;" data-key="modal_submit_btn">Bron so'rovini yuborish</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CDNs via script tags -->
+  <!-- GSAP core, ScrollTrigger, Draggable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+  
+  <!-- Lenis for smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/gh/darkroomengineering/lenis@1.0.27/dist/lenis.min.js"></script>
+  
+  <!-- Vanilla Tilt for 3D Menu Cards -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  
+  <!-- Three.js for Hero Particles -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Site Interactions JavaScript -->
+  <script>
+    // -------------------------------------------------------------
+    // Multilingual Translation Dictionary
+    // -------------------------------------------------------------
+    const translations = {
+      uz: {
+        nav_tagline: "Oilaviy Restoran",
+        nav_story: "Tarix",
+        nav_menu: "Menyu",
+        nav_gallery: "Galereya",
+        nav_reviews: "Fikrlar",
+        nav_contact: "Aloqa",
+        nav_book: "Bron Qilish",
+        hero_welcome: "Xush Kelibsiz",
+        hero_tagline: "Jizzaxning eng mazali taomi",
+        hero_cta_menu: "Menyu ko'rish",
+        hero_cta_book: "Bron qilish",
+        hero_scroll: "Pastga Scroll",
+        about_subtitle: "Bizning Hikoya",
+        about_title: "Milliy Qadriyat va Hashamat",
+        about_p1: "Jizzax shahrining qoq markazida joylagan \"Amir Restaurant\" oilaviy maskani sizga o'zbek mehmondo'stligining eng yuksak namunalarini taqdim etadi. Oila a'zolaringiz bilan shinam sharoitda o'tirib, olovda pishgan tansiq milliy taomlarimizdan bahramand bo'ling.",
+        about_quote: "\"Har bir taomda ehtirom, har bir mehmonda sharaf.\"",
+        about_p2: "Sifatli masalliqlar, mohir oshpazlarimizning maxsus retseptlari va beqiyos oilaviy muhit. Biz har bir lahzani unutilmas hashamat bilan bezaymiz.",
+        stat_rating: "Rating ★",
+        stat_reviews: "Fikrlar (Google)",
+        stat_established: "Tashkil Etilgan",
+        stat_family: "Oilaviy Maskani",
+        menu_subtitle: "Tansiq Taomlar",
+        menu_title: "Tavsiya Etilgan Taomlarimiz",
+        menu_cat_noodle: "Uy sharoitida tayyorlangan xamir",
+        menu_cat_kebab: "Ko'mirdagi shirin go'shtlar",
+        menu_cat_bread: "Issiq tandir nonlari",
+        menu_cat_chicken: "Qarsillagan oltin po'stloq",
+        menu_desc_lagman: "Qo'lda cho'zilgan xamir, barra sabzavotlar hamda maxsus tandir ziravorlari bilan tayyorlangan shirin va mazali mol go'shtidan iborat quyuq taom.",
+        menu_desc_shashlik: "Mangalda ko'mir taftida astalik bilan pishirilgan barra qo'y va mol go'shtlaridan iborat qiyma hamda burda shashlik to'plami. Piyoz va uksus bilan beriladi.",
+        menu_desc_bread: "Jizzax uslubida, maxsus qaymoq va dumba yog'i qo'shib tayyorlangan, tandirdan yangi uzilgan issiqgina, og'izda eruvchi qatlama patir.",
+        menu_desc_chicken: "Maxsus ziravorlar va sarimsoq sharbati bilan marinadlangan hamda press ostida qarsillab pishirilgan oltin rangli mazzali tovuq tabaka.",
+        menu_detail_weight: "Vazni:",
+        menu_detail_time: "Tayyorlanish vaqti:",
+        menu_order: "Buyurtma berish",
+        menu_full_btn: "To'liq menyuni yuklab olish",
+        gallery_tag1: "Olov nafasi",
+        gallery_title1: "MANGAL SAN'ATI",
+        gallery_desc1: "Har bir go'sht burdasi ko'mir alangasi taftida eng nozik didli mehmonlarimiz uchun tayyorlanadi.",
+        gallery_tag2: "Tansiq lazzatlar",
+        gallery_title2: "HAQIQIY KABOB TO'PLAMI",
+        gallery_desc2: "Amir Restorani ramziy mazasi - shirali go'shtlarning eng ajoyib uyg'unligi.",
+        gallery_tag3: "Hashamatli muhit",
+        gallery_title3: "OILAVIY SHINAMLIK",
+        gallery_desc3: "Prezident darajasidagi xizmat, zamonaviy shinam dizayn va beqiyos noziklik.",
+        gallery_tag4: "Tabiiy ingrediyentlar",
+        gallery_title4: "ZIRAVORLAR JOZIBASI",
+        gallery_desc4: "Samarqand zafaroni, tog' rayhoni hamda Jizzaxning o'ziga xos tog' ziravorlari bilan to'yingan lazzatlar.",
+        reviews_subtitle: "Tashrif buyurganlar fikrlari",
+        reviews_title: "Mijozlarimiz E'tirofi",
+        review_text_1: "\"Jizzaxdagi eng ajoyib oilaviy restoranlardan biri! Shashliklari juda yumshoq va mazzali pishgan. Oshpazlarga kattakon rahmat, xizmat ko'rsatish ham yuqori darajada. Oilamiz bilan doimiy mijozga aylandik.\"",
+        review_meta_1: "Google Maps • 5 yulduz",
+        review_text_2: "\"Очень красивое, статусное место. Заказывали мясо на ребрышках и патыр - это просто шедевр. Цены вполне приемлемые для такого качества еды и сервиса. Рекомендую всем гостям Джизака!\"",
+        review_meta_2: "Google Maps • 4.8 yulduz",
+        review_text_3: "\"Excellent food and beautiful atmosphere. The lagman noodles are handmade and very delicious. A perfect family place with clean environment and friendly English-speaking staff.\"",
+        review_meta_3: "Google Maps • 5 stars",
+        contact_subtitle: "Aloqada Bo'ling",
+        contact_title: "Biz Bilan Bog'lanish",
+        contact_open_now: "Hozir Ochiq",
+        contact_label_addr: "Manzilimiz",
+        contact_label_phone: "Telefon raqamimiz",
+        contact_label_hours: "Ish soatlarimiz",
+        contact_hours_val: "Har kuni: 10:00 – 23:00",
+        contact_btn_book: "Bron qilish",
+        footer_tagline: "Jizzaxning eng mazali taomi",
+        footer_dev: "Crafted with passion for Amir Restaurant",
+        modal_title: "Stol Bron Qilish",
+        modal_desc: "Siz tanlagan vaqtda eng shinam stolni siz uchun tayyorlab qo'yamiz",
+        modal_name: "Ismingiz",
+        modal_phone: "Telefon raqamingiz",
+        modal_date: "Sana",
+        modal_guests: "Mehmonlar soni",
+        modal_option_more: "8+ kishi (katta stol)",
+        modal_submit_btn: "Bron so'rovini yuborish"
+      },
+      ru: {
+        nav_tagline: "Семейный Ресторан",
+        nav_story: "История",
+        nav_menu: "Меню",
+        nav_gallery: "Галерея",
+        nav_reviews: "Отзывы",
+        nav_contact: "Контакты",
+        nav_book: "Забронировать",
+        hero_welcome: "Добро Пожаловать",
+        hero_tagline: "Самая вкусная еда в Джизаке",
+        hero_cta_menu: "Посмотреть Меню",
+        hero_cta_book: "Заказать Стол",
+        hero_scroll: "Прокрутить Вниз",
+        about_subtitle: "Наша История",
+        about_title: "Национальные Ценности и Роскошь",
+        about_p1: "Расположенный в самом сердце Джизака, семейный ресторан \"Amir Restaurant\" предлагает вам лучшие традиции узбекского гостеприимства. Наслаждайтесь изысканными блюдами национальной кухни на живом огне в компании вашей семьи.",
+        about_quote: "\"Уважение в каждом блюде, честь в каждом госте.\"",
+        about_p2: "Свежие ингредиенты, фирменные рецепты наших шеф-поваров и неповторимая семейная атмосфера. Мы превращаем каждый визит в роскошное событие.",
+        stat_rating: "Рейтинг ★",
+        stat_reviews: "Отзывы (Google)",
+        stat_established: "Основан",
+        stat_family: "Семейный Ресторан",
+        menu_subtitle: "Изысканные Блюда",
+        menu_title: "Наши Рекомендации",
+        menu_cat_noodle: "Лапша ручной работы",
+        menu_cat_kebab: "Сочное мясо на углях",
+        menu_cat_bread: "Горячие лепешки из тандыра",
+        menu_cat_chicken: "Хрустящая золотистая корочка",
+        menu_desc_lagman: "Тянутая вручную лапша, свежие овощи и нежная говядина, приготовленные по особому рецепту с традиционными специями.",
+        menu_desc_shashlik: "Ассорти из нежной баранины и говядины, приготовленное на медленном огне на мангале. Подается с маринованным луком.",
+        menu_desc_bread: "Традиционная джизакская лепешка (патыр), приготовленная на сливках с добавлением курдючного жира. Подается прямо из тандыра.",
+        menu_desc_chicken: "Сочный цыпленок табака, замаринованный с чесночным соусом и специями, обжаренный под прессом до хрустящей корочки.",
+        menu_detail_weight: "Вес:",
+        menu_detail_time: "Время ожидания:",
+        menu_order: "Заказать блюдо",
+        menu_full_btn: "Скачать Полное Меню",
+        gallery_tag1: "Дыхание огня",
+        gallery_title1: "ИСКУССТВО МАНГАЛА",
+        gallery_desc1: "Каждый кусочек мяса готовится на древесных углях с особым трепетом для наших гостей.",
+        gallery_tag2: "Тонкий вкус",
+        gallery_title2: "ЛЕГЕНДАРНЫЙ ШАШЛЫК",
+        gallery_desc2: "Визитная карточка Amir Restaurant - гармония сочности и аромата восточных специй.",
+        gallery_tag3: "Премиальный уют",
+        gallery_title3: "СЕМЕЙНЫЙ ОТДЫХ",
+        gallery_desc3: "Превосходный сервис, элегантный современный интерьер и домашнее тепло.",
+        gallery_tag4: "Натуральные специи",
+        gallery_title4: "МАГИЯ ВОСТОКА",
+        gallery_desc4: "Самаркандский шафран, горный базилик и авторские джизакские специи для идеального вкуса.",
+        reviews_subtitle: "Отзывы наших гостей",
+        reviews_title: "Признание и Любовь",
+        review_text_1: "\"Один из лучших семейных ресторанов в Джизаке! Шашлыки невероятно нежные и сочные. Огромное спасибо поварам, сервис на высшем уровне.\"",
+        review_meta_1: "Google Maps • 5 звезд",
+        review_text_2: "\"Очень красивое, статусное место. Заказывали мясо на ребрышках и патыр - это просто шедевр. Цены вполне приемлемые для такого качества еды и сервиса. Рекомендую всем гостям Джизака!\"",
+        review_meta_2: "Google Maps • 4.8 звезды",
+        review_text_3: "\"Excellent food and beautiful atmosphere. The lagman noodles are handmade and very delicious. A perfect family place with clean environment and friendly English-speaking staff.\"",
+        review_meta_3: "Google Maps • 5 звезд",
+        contact_subtitle: "Свяжитесь с нами",
+        contact_title: "Обратная Связь",
+        contact_open_now: "Сейчас Открыто",
+        contact_label_addr: "Наш Адрес",
+        contact_label_phone: "Номер Телефона",
+        contact_label_hours: "Часы Работы",
+        contact_hours_val: "Ежедневно: 10:00 – 23:00",
+        contact_btn_book: "Заказать Стол",
+        footer_tagline: "Самая вкусная еда в Джизаке",
+        footer_dev: "Сделано с любовью для Amir Restaurant",
+        modal_title: "Бронирование Стола",
+        modal_desc: "Мы подготовим для вас лучший столик к вашему приходу",
+        modal_name: "Ваше имя",
+        modal_phone: "Номер телефона",
+        modal_date: "Дата",
+        modal_guests: "Количество гостей",
+        modal_option_more: "8+ человек (большой стол)",
+        modal_submit_btn: "Отправить запрос"
+      },
+      en: {
+        nav_tagline: "Family Restaurant",
+        nav_story: "Story",
+        nav_menu: "Menu",
+        nav_gallery: "Gallery",
+        nav_reviews: "Reviews",
+        nav_contact: "Contact",
+        nav_book: "Book Table",
+        hero_welcome: "Welcome to",
+        hero_tagline: "The most delicious food in Jizzakh",
+        hero_cta_menu: "View Menu",
+        hero_cta_book: "Book a Table",
+        hero_scroll: "Scroll Down",
+        about_subtitle: "Our Heritage",
+        about_title: "Tradition Meets Luxury Dining",
+        about_p1: "Located in the heart of Jizzakh city, \"Amir Restaurant\" offers the absolute pinnacle of Uzbek hospitality. Gather with your family in a cozy environment and savor delicious dishes prepared over an open flame.",
+        about_quote: "\"Respect in every dish, honor in every guest.\"",
+        about_p2: "Premium organic ingredients, signature spice blends, and an unmatched family atmosphere. We frame every moment in elegant luxury.",
+        stat_rating: "Rating ★",
+        stat_reviews: "Reviews (Google)",
+        stat_established: "Established",
+        stat_family: "Family Restaurant",
+        menu_subtitle: "Signature Dishes",
+        menu_title: "Recommended Delicacies",
+        menu_cat_noodle: "Handmade noodles",
+        menu_cat_kebab: "Sweet charcoal-grilled meat",
+        menu_cat_bread: "Hot tandoor bread",
+        menu_cat_chicken: "Crispy golden crust",
+        menu_desc_lagman: "Hand-pulled traditional wheat noodles served with fresh farm vegetables and tender beef simmered in claypot spices.",
+        menu_desc_shashlik: "A luxurious selection of tender lamb and beef skewers grilled slowly over oakwood charcoal, served with pickled onions.",
+        menu_desc_bread: "Authnetic Jizzakh style layered puff bread (patir) baked inside a wood-fired tandoor, enriched with cream.",
+        menu_desc_chicken: "Whole baby chicken marinated with garlic and wild herbs, pressed and roasted to perfection with a crispy skin.",
+        menu_detail_weight: "Weight:",
+        menu_detail_time: "Cooking time:",
+        menu_order: "Order Now",
+        menu_full_btn: "Download Full Menu",
+        gallery_tag1: "Breath of fire",
+        gallery_title1: "MANGAL CRAFT",
+        gallery_desc1: "Each cut of meat is slowly roasted over select charcoal for our esteemed guests.",
+        gallery_tag2: "Rich flavours",
+        gallery_title2: "SIGNATURE SHASHLIK",
+        gallery_desc2: "The centerpiece of Amir Restaurant - a harmony of juiciness and authentic spices.",
+        gallery_tag3: "Luxury comfort",
+        gallery_title3: "FAMILY ATMOSPHERE",
+        gallery_desc3: "Presidential grade hospitality, contemporary luxury design, and heartwarming comfort.",
+        gallery_tag4: "Natural spices",
+        gallery_title4: "EASTERN SPICES",
+        gallery_desc4: "Samarkand saffron, mountain basil, and signature Jizzakh herbs for the ultimate taste profile.",
+        reviews_subtitle: "What guests say",
+        reviews_title: "Customer Praise",
+        review_text_1: "\"One of the best family restaurants in Jizzakh! The shashlik kebabs are incredibly tender and flavorful. Great hospitality and staff.\"",
+        review_meta_1: "Google Maps • 5 stars",
+        review_text_2: "\"Very beautiful and premium place. The roasted ribs and local puff bread are masterpieces. Highly recommended for tourists!\"",
+        review_meta_2: "Google Maps • 4.8 stars",
+        review_text_3: "\"Excellent food and beautiful atmosphere. The lagman noodles are handmade and very delicious. A perfect family place with clean environment and friendly English-speaking staff.\"",
+        review_meta_3: "Google Maps • 5 stars",
+        contact_subtitle: "Get in Touch",
+        contact_title: "Contact Details",
+        contact_open_now: "Open Now",
+        contact_label_addr: "Our Location",
+        contact_label_phone: "Phone Number",
+        contact_label_hours: "Working Hours",
+        contact_hours_val: "Every day: 10:00 AM – 11:00 PM",
+        contact_btn_book: "Book a Table",
+        footer_tagline: "The most delicious food in Jizzakh",
+        footer_dev: "Crafted with passion for Amir Restaurant",
+        modal_title: "Book a Table",
+        modal_desc: "We will prepare the perfect table for your arrival",
+        modal_name: "Your name",
+        modal_phone: "Phone number",
+        modal_date: "Date",
+        modal_guests: "Guests count",
+        modal_option_more: "8+ people (large table)",
+        modal_submit_btn: "Send request"
+      }
+    };
+
+    let currentLang = 'uz';
+
+    function switchLang(lang) {
+      if (lang === currentLang) return;
+      currentLang = lang;
+
+      // Update button visual active states
+      document.querySelectorAll('.lang-switcher .lang-btn, .mobile-lang-switcher .lang-btn').forEach(btn => {
+        if (btn.getAttribute('onclick').includes(lang)) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Staggered GSAP transition for translation text swap
+      gsap.to('[data-key]', {
+        opacity: 0,
+        y: -5,
+        duration: 0.2,
+        stagger: 0.01,
+        onComplete: () => {
+          document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[lang] && translations[lang][key]) {
+              // Preserve icons inside buttons/headers if present
+              const icon = el.querySelector('i');
+              const pulseDot = el.querySelector('.pulse-dot');
+              
+              if (icon) {
+                el.innerHTML = '';
+                el.appendChild(icon);
+                el.appendChild(document.createTextNode(' ' + translations[lang][key]));
+              } else if (pulseDot) {
+                el.innerHTML = '';
+                el.appendChild(pulseDot);
+                el.appendChild(document.createTextNode(' ' + translations[lang][key]));
+              } else {
+                el.textContent = translations[lang][key];
+              }
+            }
+          });
+
+          gsap.to('[data-key]', {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            stagger: 0.01
+          });
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Page Preloader & Entry Sequence
+    // -------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      const tl = gsap.timeline();
+      
+      tl.to('.preloader-logo-img', {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      })
+      .to('.preloader-bar', {
+        left: '100%',
+        duration: 1.2,
+        ease: 'power2.inOut'
+      })
+      .to('.preloader', {
+        yPercent: -100,
+        duration: 0.8,
+        ease: 'power4.inOut',
+        onComplete: () => {
+          // Initialize main page entry animation
+          animatePageEntry();
+        }
+      });
+    });
+
+    function animatePageEntry() {
+      const entryTimeline = gsap.timeline();
+
+      // Fade in nav & header elements
+      entryTimeline.from('header', {
+        y: -50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out'
+      });
+
+      // Staggered reveal for Hero title
+      const title = document.getElementById('hero-main-title');
+      title.innerHTML = title.textContent.trim().split(' ').map(word => `<span>${word}</span>`).join(' ');
+      
+      entryTimeline.from('#hero-main-title span', {
+        opacity: 0,
+        y: 30,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, '-=0.5');
+
+      entryTimeline.from('.hero-subtitle-top, .hero-subtitle-bottom, .hero-ctas, .scroll-indicator', {
+        opacity: 0,
+        y: 20,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: 'power3.out'
+      }, '-=0.4');
+    }
+
+    // -------------------------------------------------------------
+    // Smooth Scroll (Lenis) & Sticky Header
+    // -------------------------------------------------------------
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Sync GSAP ScrollTrigger with Lenis
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time)=>{
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // Sticky header class logic
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile nav toggle
+    function toggleMobileMenu() {
+      document.querySelector('.mobile-menu').classList.toggle('active');
+      document.querySelector('.mobile-menu-overlay').classList.toggle('active');
+    }
+
+    // -------------------------------------------------------------
+    // Custom Magnetic Cursor (Gold Halo and core dot)
+    // -------------------------------------------------------------
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorRing = document.querySelector('.cursor-ring');
+    let cursorInitialized = false;
+    let hasTouch = false;
+
+    // Center cursor elements initially via GSAP
+    gsap.set([cursorDot, cursorRing], { xPercent: -50, yPercent: -50 });
+
+    window.addEventListener('touchstart', () => {
+      hasTouch = true;
+      document.body.classList.remove('custom-cursor-active');
+      cursorDot.style.display = 'none';
+      cursorRing.style.display = 'none';
+    }, { once: true });
+
+    window.addEventListener('mousemove', (e) => {
+      if (hasTouch) return;
+
+      if (!cursorInitialized) {
+        document.body.classList.add('custom-cursor-active');
+        cursorDot.style.display = 'block';
+        cursorRing.style.display = 'block';
+        gsap.to([cursorDot, cursorRing], { opacity: 1, duration: 0.3 });
+        cursorInitialized = true;
+      }
+      
+      gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0.1 });
+      gsap.to(cursorRing, { x: e.clientX, y: e.clientY, duration: 0.3 });
+    });
+
+    // Cursor hover enlargements on luxury interactive nodes
+    document.querySelectorAll('a, button, .menu-card-container, .lang-btn, .social-btn, .reviews-nav-btn, .review-dot').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (hasTouch) return;
+        gsap.to(cursorRing, {
+          width: 60,
+          height: 60,
+          borderColor: '#c9a84c',
+          backgroundColor: 'rgba(201, 168, 76, 0.08)',
+          duration: 0.3
+        });
+        gsap.to(cursorDot, { scale: 1.5, duration: 0.3 });
+      });
+      el.addEventListener('mouseleave', () => {
+        if (hasTouch) return;
+        gsap.to(cursorRing, {
+          width: 40,
+          height: 40,
+          borderColor: '#c9a84c',
+          backgroundColor: 'transparent',
+          duration: 0.3
+        });
+        gsap.to(cursorDot, { scale: 1, duration: 0.3 });
+      });
+    });
+
+    // -------------------------------------------------------------
+    // Three.js Hero Ember Canvas (Glow Sparks System)
+    // -------------------------------------------------------------
+    let scene, camera, renderer, particleSystem;
+
+    function initEmberCanvas() {
+      const container = document.getElementById('home');
+      const canvas = document.getElementById('ember-canvas');
+      
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
+      camera.position.z = 30;
+
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Custom circular canvas texture for soft glowing particles
+      const pCanvas = document.createElement('canvas');
+      pCanvas.width = 16;
+      pCanvas.height = 16;
+      const ctx = pCanvas.getContext('2d');
+      const grad = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+      grad.addColorStop(0, 'rgba(255, 230, 150, 1)');
+      grad.addColorStop(0.3, 'rgba(201, 168, 76, 0.8)');
+      grad.addColorStop(0.7, 'rgba(139, 26, 26, 0.3)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 16, 16);
+      const texture = new THREE.CanvasTexture(pCanvas);
+
+      // Particle geometry details
+      const count = 180;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(count * 3);
+      const speeds = new Float32Array(count);
+      const sways = new Float32Array(count);
+
+      for (let i = 0; i < count; i++) {
+        // Spread particles across viewport volume
+        positions[i * 3] = (Math.random() - 0.5) * 60;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+
+        speeds[i] = Math.random() * 0.04 + 0.02;
+        sways[i] = Math.random() * 0.01 + 0.005;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 0.8,
+        map: texture,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        depthWrite: false,
+        sizeAttenuation: true
+      });
+
+      particleSystem = new THREE.Points(geometry, material);
+      particleSystem.userData = { speeds: speeds, sways: sways };
+      scene.add(particleSystem);
+
+      // Handle resize
+      window.addEventListener('resize', onWindowResize);
+
+      animateParticles();
+    }
+
+    function animateParticles() {
+      requestAnimationFrame(animateParticles);
+
+      const positions = particleSystem.geometry.attributes.position.array;
+      const count = positions.length / 3;
+      const speeds = particleSystem.userData.speeds;
+      const sways = particleSystem.userData.sways;
+
+      for (let i = 0; i < count; i++) {
+        // Move upward using pre-randomized speed
+        positions[i * 3 + 1] += speeds[i]; 
+        
+        // Sway sideways (wind drift) using pre-randomized sway factor
+        positions[i * 3] += Math.sin(Date.now() * 0.0008 + i) * sways[i];
+
+        // Reset if particles go off-screen top
+        if (positions[i * 3 + 1] > 25) {
+          positions[i * 3 + 1] = -25;
+          positions[i * 3] = (Math.random() - 0.5) * 60;
+        }
+      }
+
+      particleSystem.geometry.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('home');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(width, height);
+    }
+
+    // Initialize particles when the hero section is parsed
+    if (document.getElementById('home')) {
+      initEmberCanvas();
+    }
+
+    // -------------------------------------------------------------
+    // GSAP ScrollTrigger Animations
+    // -------------------------------------------------------------
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Staggered text reveals across sections
+    document.querySelectorAll('.section-subtitle, .section-title, .section-divider').forEach(el => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+    });
+
+    // Story section grid parallax and frame borders
+    gsap.from('.about-content p, .about-quote, .stats-row', {
+      scrollTrigger: {
+        trigger: '.about-section',
+        start: 'top 75%',
+      },
+      opacity: 0,
+      y: 40,
+      stagger: 0.15,
+      duration: 1,
+      ease: 'power3.out'
+    });
+
+    gsap.from('#about-frame', {
+      scrollTrigger: {
+        trigger: '.about-section',
+        start: 'top 70%',
+      },
+      rotation: -10,
+      scale: 0.9,
+      opacity: 0,
+      duration: 1.5,
+      ease: 'power2.out'
+    });
+
+    // Menu Grid cards entrance stagger
+    gsap.from('.menu-card-container', {
+      scrollTrigger: {
+        trigger: '.menu-section',
+        start: 'top 70%',
+      },
+      opacity: 0,
+      y: 50,
+      stagger: 0.15,
+      duration: 1,
+      ease: 'power4.out'
+    });
+
+    // -------------------------------------------------------------
+    // Numeric Counter Animations (Stats counting on scroll)
+    // -------------------------------------------------------------
+    const statCards = document.querySelectorAll('.stat-number');
+    statCards.forEach(stat => {
+      const start = parseFloat(stat.getAttribute('data-start') || '0');
+      const target = parseFloat(stat.getAttribute('data-target'));
+      const decimals = parseInt(stat.getAttribute('data-decimals') || '0');
+      const prefix = stat.getAttribute('data-prefix') || '';
+      const suffix = stat.getAttribute('data-suffix') || '';
+
+      const countObj = { value: start };
+      
+      gsap.to(countObj, {
+        scrollTrigger: {
+          trigger: stat,
+          start: 'top 85%',
+        },
+        value: target,
+        duration: 2.5,
+        ease: 'power2.out',
+        onUpdate: () => {
+          stat.textContent = prefix + countObj.value.toFixed(decimals) + suffix;
+        }
+      });
+    });
+
+    // -------------------------------------------------------------
+    // Pinned Horizontal Gallery Section (GSAP ScrollTrigger)
+    // -------------------------------------------------------------
+    const horizontalScroll = document.getElementById('horizontal-scroll');
+    const slides = document.querySelectorAll('.gallery-slide');
+    
+    gsap.to(horizontalScroll, {
+      x: () => -(horizontalScroll.scrollWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#gallery',
+        pin: true,
+        scrub: 1,
+        start: 'top top',
+        end: () => `+=${horizontalScroll.scrollWidth - window.innerWidth}`,
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // -------------------------------------------------------------
+    // Review Stars Animation (Filling on Scroll)
+    // -------------------------------------------------------------
+    gsap.to('#rating-stars', {
+      scrollTrigger: {
+        trigger: '.reviews-section',
+        start: 'top 70%',
+      },
+      width: '92%', // Fills stars to ~4.6 / 5.0
+      duration: 1.8,
+      ease: 'power3.out'
+    });
+
+    // -------------------------------------------------------------
+    // Review Carousel Script
+    // -------------------------------------------------------------
+    let currentSlide = 0;
+    const track = document.getElementById('reviews-track');
+    const dots = document.querySelectorAll('.review-dot');
+    const totalSlides = document.querySelectorAll('.review-slide').length;
+
+    function moveCarousel(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = totalSlides - 1;
+      if (currentSlide >= totalSlides) currentSlide = 0;
+      updateCarousel();
+    }
+
+    function jumpToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    function updateCarousel() {
+      gsap.to(track, {
+        xPercent: -currentSlide * 100,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // Auto rotate reviews
+    let reviewTimer = setInterval(() => moveCarousel(1), 6000);
+    document.querySelector('.reviews-carousel-container').addEventListener('mouseenter', () => {
+      clearInterval(reviewTimer);
+    });
+    document.querySelector('.reviews-carousel-container').addEventListener('mouseleave', () => {
+      reviewTimer = setInterval(() => moveCarousel(1), 6000);
+    });
+
+    // -------------------------------------------------------------
+    // Contact Info Indicator & Form Booking Actions
+    // -------------------------------------------------------------
+    const bookingModal = document.getElementById('booking-modal');
+    
+    function openModal(dishName = '') {
+      bookingModal.classList.add('active');
+      lenis.stop(); // Pause smooth scrolling
+
+      // Autofill date field to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('book-date').value = today;
+
+      if (dishName) {
+        const titleEl = document.querySelector('.modal-title');
+        titleEl.textContent = currentLang === 'uz' ? `Buyurtma: ${dishName}` :
+                            currentLang === 'ru' ? `Заказ: ${dishName}` :
+                            `Order: ${dishName}`;
+      } else {
+        const titleEl = document.querySelector('.modal-title');
+        titleEl.textContent = translations[currentLang].modal_title;
+      }
+    }
+
+    function closeModal() {
+      bookingModal.classList.remove('active');
+      lenis.start(); // Resume smooth scrolling
+    }
+
+    function handleBooking(event) {
+      event.preventDefault();
+      const name = document.getElementById('book-name').value;
+      const phone = document.getElementById('book-phone').value;
+      const date = document.getElementById('book-date').value;
+      const guests = document.getElementById('book-guests').value;
+
+      const successMsg = currentLang === 'uz' ? `Rahmat, ${name}! Stolingiz muvaffaqiyatli band qilindi.` :
+                         currentLang === 'ru' ? `Спасибо, ${name}! Ваш столик успешно забронирован.` :
+                         `Thank you, ${name}! Your table booking is confirmed.`;
+
+      alert(successMsg);
+      closeModal();
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
